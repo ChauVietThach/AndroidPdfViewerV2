@@ -22,12 +22,13 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.provider.OpenableColumns;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
@@ -37,17 +38,11 @@ import com.github.barteksc.pdfviewer.scroll.DefaultScrollHandle;
 import com.shockwave.pdfium.PdfDocument;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.NonConfigurationInstance;
 import org.androidannotations.annotations.OnActivityResult;
-import org.androidannotations.annotations.OptionsItem;
-import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
 
-@EActivity(R.layout.activity_main)
-@OptionsMenu(R.menu.options)
+
 public class PDFViewActivity extends AppCompatActivity implements OnPageChangeListener, OnLoadCompleteListener,
         OnPageErrorListener {
 
@@ -59,18 +54,14 @@ public class PDFViewActivity extends AppCompatActivity implements OnPageChangeLi
     public static final String SAMPLE_FILE = "sample.pdf";
     public static final String READ_EXTERNAL_STORAGE = "android.permission.READ_EXTERNAL_STORAGE";
 
-    @ViewById
     PDFView pdfView;
 
-    @NonConfigurationInstance
     Uri uri;
 
-    @NonConfigurationInstance
     Integer pageNumber = 0;
 
     String pdfFileName;
 
-    @OptionsItem(R.id.pickFile)
     void pickFile() {
         int permissionCheck = ContextCompat.checkSelfPermission(this,
                 READ_EXTERNAL_STORAGE);
@@ -99,7 +90,6 @@ public class PDFViewActivity extends AppCompatActivity implements OnPageChangeLi
         }
     }
 
-    @AfterViews
     void afterViews() {
         pdfView.setBackgroundColor(Color.LTGRAY);
         if (uri != null) {
@@ -138,7 +128,6 @@ public class PDFViewActivity extends AppCompatActivity implements OnPageChangeLi
                 .load();
     }
 
-    @OnActivityResult(REQUEST_CODE)
     public void onResult(int resultCode, Intent intent) {
         if (resultCode == RESULT_OK) {
             uri = intent.getData();
@@ -209,6 +198,7 @@ public class PDFViewActivity extends AppCompatActivity implements OnPageChangeLi
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
                                            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == PERMISSION_CODE) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
