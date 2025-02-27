@@ -1,9 +1,10 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
+//apply plugin: 'maven-publish'
 
 android {
-    compileSdk 34
+    namespace = "com.github.barteksc.pdfviewer"
 
+    compileSdk 34
     defaultConfig {
         minSdk 21
         targetSdk 34
@@ -14,39 +15,60 @@ android {
             consumerProguardFiles 'proguard-rules.pro'
         }
     }
-    namespace = "com.github.barteksc.pdfviewer"
-}
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                groupId = 'com.github.shaheer-oncoassist'
-                artifactId = 'AndroidPdfViewerV2-sdk34'
-                version = '1.0.0'
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 
-                artifact("$buildDir/outputs/aar/${project.name}-release.aar") {
-                    builtBy(tasks.named("bundleReleaseAar")) // Ensure AAR is built first
-                }
-
-                pom {
-                    name = 'AndroidPdfViewerV2-sdk34'
-                    description = 'Fork of PdfiumAndroid with SDK 34 compatibility'
-                    url = 'https://github.com/shaheer-oncoassist/AndroidPdfViewerV2-sdk34'
-                    licenses {
-                        license {
-                            name = 'Apache-2.0'
-                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                        }
-                    }
-                }
-            }
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            jniLibs.srcDir 'src/main/libs'
         }
     }
 }
 
+//afterEvaluate {
+//    publishing {
+//        repositories {
+//            maven {
+//                name = "GitHubPackages"
+//                url = uri("https://maven.pkg.github.com/ChauVietThach/AndroidPdfViewerV2")
+//                credentials {
+//                    username = getEnv("userNameGitHub")
+//                    password = getEnv("personalToken")
+//                }
+//            }
+//        }
+//        publications {
+//            register<MavenPublication>("release") {
+//                groupId = "com.github.cvt"
+//                artifactId = "pdfviewer"
+//                version = "2.8.2"
+//
+//                artifact("${layout.buildDirectory.get()}/outputs/aar/${project.name}-release.aar") {
+//                    builtBy(tasks.named("bundleReleaseAar")) // Ensure AAR is built first
+//                }
+//
+//                pom {
+//                    name.set("AndroidPdfViewerV2")
+//                    description.set("Fork of PdfViewer")
+//                    url.set("https://github.com/ChauVietThach/android-pdf-lib")
+//                    licenses {
+//                        license {
+//                            name.set("Apache-2.0")
+//                            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
 dependencies {
-    implementation 'com.github.shaheer-oncoassist:PdfiumAndroid-sdk34:1.0.3'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'org.jetbrains:annotations:23.0.0'
     implementation 'androidx.core:core:1.13.1'
 }

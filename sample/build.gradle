@@ -25,25 +25,24 @@ apply plugin: 'com.android.application'
 apply plugin: 'maven-publish'
 
 android {
+    namespace = "com.github.barteksc.sample"
     compileSdk 34
-
     defaultConfig {
         applicationId "com.github.barteksc.sample"
         minSdk 21
         targetSdk 34
         versionCode 3
         versionName "2.0.0"
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["androidManifestFile": "$projectDir/src/main/AndroidManifest.xml".toString()]
-            }
-        }
     }
-    namespace = "com.github.barteksc.sample"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
 }
 
 dependencies {
-    implementation 'com.github.shaheer-oncoassist:PdfiumAndroid-sdk34:1.0.3@aar'
     implementation 'androidx.core:core:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation project(':android-pdf-viewer')
