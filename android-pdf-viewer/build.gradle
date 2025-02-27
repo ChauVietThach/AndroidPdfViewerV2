@@ -15,15 +15,27 @@ android {
         }
     }
     namespace = "com.github.barteksc.pdfviewer"
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            jniLibs.srcDir 'src/main/libs'
+        }
+    }
 }
 
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                groupId = 'com.github.shaheer-oncoassist'
-                artifactId = 'AndroidPdfViewerV2-sdk34'
-                version = '1.0.0'
+                groupId = 'com.github.cvt'
+                artifactId = 'AndroidPdfViewerV2'
+                version = '2.8.2'
 
                 artifact("$buildDir/outputs/aar/${project.name}-release.aar") {
                     builtBy(tasks.named("bundleReleaseAar")) // Ensure AAR is built first
@@ -46,7 +58,7 @@ afterEvaluate {
 }
 
 dependencies {
-    api 'com.github.shaheer-oncoassist:PdfiumAndroid-sdk34:1.0.3'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'org.jetbrains:annotations:23.0.0'
     implementation 'androidx.core:core:1.13.1'
 }
