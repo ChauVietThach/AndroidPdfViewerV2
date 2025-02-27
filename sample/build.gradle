@@ -43,7 +43,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.github.shaheer-oncoassist:PdfiumAndroid-sdk34:1.0.3@aar'
     implementation 'androidx.core:core:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation project(':android-pdf-viewer')

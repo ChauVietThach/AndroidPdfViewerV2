@@ -46,7 +46,7 @@ afterEvaluate {
 }
 
 dependencies {
-    implementation 'com.github.shaheer-oncoassist:PdfiumAndroid-sdk34:1.0.3'
+    api 'com.github.shaheer-oncoassist:PdfiumAndroid-sdk34:1.0.3'
     implementation 'org.jetbrains:annotations:23.0.0'
     implementation 'androidx.core:core:1.13.1'
 }
