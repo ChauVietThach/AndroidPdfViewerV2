@@ -45,7 +45,8 @@ android {
 dependencies {
     implementation 'androidx.core:core:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation project(':android-pdf-viewer')
+//    implementation project(':android-pdf-viewer')
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
     annotationProcessor 'org.androidannotations:androidannotations:4.8.0'
     implementation 'org.androidannotations:androidannotations-api:4.8.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.20"
